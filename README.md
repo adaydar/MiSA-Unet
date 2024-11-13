@@ -2,32 +2,32 @@
 
 This repo contains the Official Pytorch implementation of our paper:
 
-Segmentation of tibiofemoral joint tissues from knee MRI using MtRA-Unet and incorporating shape information: Data from the Osteoarthritis Initiative
+    Segmentation of tibiofemoral joint tissues from knee MRI using MtRA-Unet and incorporating shape information: Data from the Osteoarthritis Initiative
 
     Akshay Daydar*, Alik Pramanick, Arijit Sur, Subramani Kanagaraj
 
 Requirements
 
     Linux
-    Python 3.8
-    Pytorch 1.6
+    Python3 3.8.10
+    Pytorch 1.13.1
     train and test with A100 GPU
 
-Prepare Dataset
+Prepare Dataset:
 
-Download Knee MRI Dataset from OAI repository at https://nda.nih.gov/oai and corresponding masks from OAI-ZIB repository at pubdata.zib.de.
+    Download Knee MRI Dataset from OAI repository at https://nda.nih.gov/oai and corresponding masks from OAI-ZIB repository at pubdata.zib.de.
 
-Training and Testing
+Training and Testing:
 
 Prepare the dataset and then run the following command for pretrain:
 
-python train.py
+    python3 train.py
 
 For Testing, run
 
-python test.py
+    python3 test.py
 
-Citation
-If you find this repo useful for your research, please consider citing our paper:
+Citation:
+ If you find this repo useful for your research, please consider citing our paper:
 
-Daydar, Akshay, et al. "Segmentation of tibiofemoral joint tissues from knee MRI using MtRA-Unet and incorporating shape information: Data from the Osteoarthritis Initiative." arXiv preprint arXiv:2401.12932 (2024).
+    Daydar, Akshay, et al. "Segmentation of tibiofemoral joint tissues from knee MRI using MtRA-Unet and incorporating shape information: Data from the Osteoarthritis Initiative." arXiv preprint arXiv:2401.12932 (2024).
