@@ -29,7 +29,7 @@ class CycleNet(nn.Module):
         return t1,t2,t3,t4  
 
        
-def BAWLoss(preds,GT):
+def SR_loss(preds,GT):
        Loss_1 = 0.0
        Loss_2 = 0.0
        Loss_3 = 0.0
@@ -55,7 +55,7 @@ def dice_loss(preds, y, eps=1e-7):
     y1 = y1.permute(0,1,2,3)
     preds1= preds.permute(0,1,2,3)
     BCE = F.cross_entropy(preds1,y1,weight = torch.tensor([0.01,0.1,0.27,0.12,0.5]).to(DEVICE))
-    BAL1,BAL2,BAL3,BAL4 = BAWLoss(preds,y)
+    BAL1,BAL2,BAL3,BAL4 = SR_loss(preds,y)
     for i in range(5):
         inputs = preds[:, i, :, :]
         targets = y[:, 0, i, :, :]
