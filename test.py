@@ -54,8 +54,8 @@ def main():
         ],
     )
 
-    model = UNET().to(DEVICE)
-    loss_fn = dice_loss
+    model = MtRA_Unet().to(DEVICE)
+    loss_fn = combined_loss
 
     test_loader = get_test_dataloader(
         images,
