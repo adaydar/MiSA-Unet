@@ -46,7 +46,7 @@ def SR_loss(preds,GT):
        Loss_4=LossL1(tg4,t4)
        return  Loss_1,Loss_2,Loss_3,Loss_4
 
-def dice_loss(preds, y, eps=1e-7):
+def combined_loss(preds, y, eps=1e-7):
     preds = nn.Softmax(dim=1)(preds)
     #y1 = y
     y = torch.moveaxis(y, (2, 3), (3, 4))
