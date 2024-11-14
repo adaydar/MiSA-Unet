@@ -146,9 +146,9 @@ class MRFF(nn.Module):
 
        
          
-class UNET(nn.Module):
+class MtRA-Unet(nn.Module):
     def __init__(self,img_ch=3,output_ch=5):
-        super(UNET,self).__init__()
+        super(MtRA-Unet,self).__init__()
               
         self.mp = nn.MaxPool2d(2,stride=2,padding=1)
         self.ap = nn.AvgPool2d(2,stride=2,padding=1)
