@@ -62,8 +62,8 @@ def main():
         ],
     )
 
-    model = UNET().to(DEVICE)
-    loss_fn = dice_loss 
+    model = MtRA_Unet().to(DEVICE)
+    loss_fn = combined_loss 
     optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
 
     train_loader, val_loader = get_loaders(
