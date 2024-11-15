@@ -41,7 +41,7 @@ Prepare Dataset:
 
 Training and Testing:
 
-Prepare the dataset and then run the following command for pretrain:
+Prepare the dataset and then run the following command for training:
 
     python3 train.py
 
