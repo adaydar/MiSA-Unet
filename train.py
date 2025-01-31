@@ -26,7 +26,9 @@ def train_fn(loader, model, optimizer, loss_fn, scaler):
         # forward
         with torch.cuda.amp.autocast():
             predictions = model(data)
-            loss = loss_fn(predictions, targets)
+            loss1 = loss_fn(predictions, targets)
+            loss2, loss_net1 = SRL_cartilage(predictions, targets, data)
+            loss = loss1+loss2 
             Loss_cum += loss.item()  
             optimizer.zero_grad()
             scaler.scale(loss).backward()
