@@ -1,9 +1,10 @@
-This repo contains the Official Pytorch implementation of our paper:
+This repo contains the Official Pytorch implementation of our paper at ICIP'25:
 
 Diffusion Based Shape-Aware Learning With Multi-Resolution Context For Segmentation of Tibiofemoral Knee Joint Tissues: An End-To-End Approach
-Akshay Daydar*, Alik Pramanick, Arijit Sur, Subramani Kanagaraj
+by Akshay Daydar*, Alik Pramanick, Arijit Sur, Subramani Kanagaraj
 
-![MiSA-Unet Architecture](./MiSA_Unet.png)/
+![MiSA-Unet Architecture](./MiSA_Unet.png) Figure: Overall schematic of the proposed Multi-Scale Attentive-Unet with (a) Scale-aware Attentive Feature Enhancement
+Module, and (c) the total loss function (Pixel-wise and Proposed Diffusion-based Multi Tissue Shape Reconstruction).
 
 Requirements
 
