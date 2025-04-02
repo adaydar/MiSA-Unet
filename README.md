@@ -1,29 +1,9 @@
-#MtRA-Unet 
-
 This repo contains the Official Pytorch implementation of our paper:
 
-    Segmentation of tibiofemoral joint tissues from knee MRI using MtRA-Unet and incorporating shape information: Data from the Osteoarthritis Initiative
+Diffusion Based Shape-Aware Learning With Multi-Resolution Context For Segmentation of Tibiofemoral Knee Joint Tissues: An End-To-End Approach
+Akshay Daydar*, Alik Pramanick, Arijit Sur, Subramani Kanagaraj
 
-    Akshay Daydar*, Alik Pramanick, Arijit Sur, Subramani Kanagaraj
-
-![MtRA-Unet Architecture](./MtRA_Unet_Architecture.png)/
-
-Repository Structure:
-
-MtRA_Unet/
-├── train.py
-├── test.py
-├── README.md
-├── train_test_images.csv
-└── utils/
-    ├── __init__.py   
-    ├── config.py
-    ├── evaluation_metrics_test.py
-    ├── evaluation_metrics_train.py
-    ├── loader.py
-    ├── loader_test.py
-    ├── loss_functions.py
-    ├── model.py
+![MiSA-Unet Architecture](./MiSA_Unet.png)/
 
 Requirements
 
