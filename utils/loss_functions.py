@@ -1,8 +1,54 @@
 import torch
 import torch.nn.functional as F
+from einops import rearrange
+from torch.cuda.amp import autocast
 from utils.config import *
 from utils.model import *
 
+class SelfAttention(nn.Module):
+    def __init__(self, num_in_ch=16, dim=16, num_heads=4, bias=False):
+        super(SelfAttention, self).__init__()
+        self.num_heads = num_heads
+        self.temperature = nn.Parameter(torch.ones(num_heads, 1, 1))
+
+        self.q = nn.Conv2d(num_in_ch, dim, kernel_size=1, bias=bias)
+        self.q_dwconv = nn.Conv2d(dim, dim, kernel_size=3, stride=1, padding=1, groups=dim, bias=bias)
+        self.kv = nn.Conv2d(num_in_ch, dim * 2, kernel_size=1, bias=bias)
+        self.kv_dwconv = nn.Conv2d(dim * 2, dim * 2, kernel_size=3, stride=1, padding=1, groups=dim * 2, bias=bias)
+        self.project_out = nn.Conv2d(dim, dim, kernel_size=1, bias=bias)
+       
+        self.residual_conv = nn.Conv2d(num_in_ch, dim, kernel_size=1, bias=bias)
+        self.additional_conv = nn.Conv2d(dim, dim, kernel_size=1, stride=1, padding=1, bias=bias)
+        self.layer_norm = nn.LayerNorm([dim, 150, 150])
+        
+    def forward(self, x, y):
+        #print(x.shape)
+        b, c, h, w = x.shape  # batch, channels, height, width
+        #print(x.shape)
+        q = self.q_dwconv(self.q(x))
+        kv = self.kv_dwconv(self.kv(y))
+        k, v = kv.chunk(2, dim=1)
+
+        q = rearrange(q, 'b (head c) h w -> b head c (h w)', head=self.num_heads)
+        k = rearrange(k, 'b (head c) h w -> b head c (h w)', head=self.num_heads)
+        v = rearrange(v, 'b (head c) h w -> b head c (h w)', head=self.num_heads)
+
+        q = torch.nn.functional.normalize(q, dim=-1)
+        k = torch.nn.functional.normalize(k, dim=-1)
+
+        attn = (q @ k.transpose(-2, -1)) * self.temperature
+        attn = attn.softmax(dim=-1)
+
+        out = (attn @ v)
+
+        out = rearrange(out, 'b head c (h w) -> b (head c) h w', head=self.num_heads, h=h, w=w)
+
+        out = self.project_out(out)
+        out = out + self.residual_conv(x)
+        #out = self.additional_conv(out)
+        out = self.layer_norm(out)
+        return out
+        
 class block(nn.Module):
     def __init__(self):
         super(block, self).__init__()
@@ -101,7 +147,7 @@ def basic_commands_conversion(preds):
        return pred_coarse_mask1
 
         
-def process_batch(pred_indi, thresholds, folder):
+def process_batch(pred_indi, thresholds):
 
     batch_results = []
     num_batch = pred_indi.shape[0]

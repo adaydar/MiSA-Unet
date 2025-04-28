@@ -57,7 +57,7 @@ def check_accuracy(loader, model, device="cuda"):
             Tib = torch.numel(pred_class[pred_class==3])
             Tib_cart = torch.numel(pred_class[pred_class==4])
             
-            if Fem>=300 and Tib>=300 and Fem_cart>=100 and Tib_cart>=100:
+            if Fem>=0 and Tib>=0 and Fem_cart>=0 and Tib_cart>=0:
                     num_correct += (pred_class == y_class).sum()
                     num_pixels += torch.numel(pred_class)   
                     counter_1+=1

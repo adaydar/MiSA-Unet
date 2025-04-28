@@ -57,7 +57,7 @@ def get_test_dataloader(
 
     test_loader = DataLoader(
         test_ds,
-        batch_size=batch_size,
+        batch_size=test_batch_size,
         num_workers=num_workers,
         pin_memory=pin_memory,
         shuffle=False,

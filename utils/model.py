@@ -121,9 +121,9 @@ class SpatialAttention(nn.Module):
         x = self.conv1(x)
         return self.sigmoid(x)
  
-class MRFF(nn.Module):
+class SAFE(nn.Module):
     def __init__(self,in_c,out_c):
-      super(MRFF, self).__init__()
+      super(SAFE, self).__init__()
       self.conb1 = cv1(in_c,in_c)
       self.conb2 = cv2(in_c,in_c)
       self.conb3 = cv3(in_c,in_c)
@@ -146,9 +146,9 @@ class MRFF(nn.Module):
 
        
          
-class MtRA-Unet(nn.Module):
+class MiSA_Unet(nn.Module):
     def __init__(self,img_ch=3,output_ch=5):
-        super(MtRA-Unet,self).__init__()
+        super(MiSA_Unet,self).__init__()
               
         self.mp = nn.MaxPool2d(2,stride=2,padding=1)
         self.ap = nn.AvgPool2d(2,stride=2,padding=1)
@@ -186,35 +186,35 @@ class MtRA-Unet(nn.Module):
         self.ca3 =  ChannelAttention(128)
         self.sa4 =  SpatialAttention(64)
         self.ca4 =  ChannelAttention(64)
-        self.MRFF1 = MRFF(3,64)
-        self.MRFF2 = MRFF(64,128)
-        self.MRFF3 = MRFF(128,256)
-        self.MRFF4 = MRFF(256,512)
-        self.MRFF5 = MRFF(512,1024)
+        self.SAFE1 = SAFE(3,64)
+        self.SAFE2 = SAFE(64,128)
+        self.SAFE3 = SAFE(128,256)
+        self.SAFE4 = SAFE(256,512)
+        self.SAFE5 = SAFE(512,1024)
 
     def forward(self,x):
         # encoding path
-        x1 = self.MRFF1(x)
+        x1 = self.SAFE1(x)
 
         y_13 = self.mp(x1)
         y_14 = self.ap(x1)
         y_15 = torch.add(y_13,y_14)
-        x2 = self.MRFF2(y_15)
+        x2 = self.SAFE2(y_15)
         
         y_23 = self.mp(x2)
         y_24 = self.ap(x2)
         y_25 = torch.add(y_23,y_24)          
-        x3 = self.MRFF3(y_25)
+        x3 = self.SAFE3(y_25)
         
         y_33 = self.mp(x3)
         y_34 = self.ap(x3)
         y_35 = torch.add(y_33,y_34)        
-        x4 = self.MRFF4(y_35)
+        x4 = self.SAFE4(y_35)
         
         y_43 = self.mp(x4)
         y_44 = self.ap(x4)
         y_45 = torch.add(y_43,y_44)       
-        x5 = self.MRFF5(y_45)      
+        x5 = self.SAFE5(y_45)      
 
         # decoding + concat path
         
