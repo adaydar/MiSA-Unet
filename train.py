@@ -64,7 +64,7 @@ def main():
         ],
     )
 
-    model = MtRA_Unet().to(DEVICE)
+    model = MiSA_Unet().to(DEVICE)
     loss_fn = combined_loss 
     optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
 

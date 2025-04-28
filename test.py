@@ -23,11 +23,8 @@ images = os.listdir(TEST_IMG_DIR)
 images2=(os.listdir(TEST_IMG_DIR)).sort()
 dict1 = {'original_list':images,'model_list':images2}
 images1 = pd.DataFrame.from_dict(dict1)
-images1.to_csv(SAVE_PATH+"image_list.csv")
+images1.to_csv(SAVE_PATH+"test_image_list.csv")
 
-def load_checkpoint(checkpoint, model):
-    print("=> Loading checkpoint")
-    model.load_state_dict(checkpoint["state_dict"])
         
 def test_fn(loader, model, loss_fn, scaler):
 
@@ -54,7 +51,7 @@ def main():
         ],
     )
 
-    model = MtRA_Unet().to(DEVICE)
+    model = MiSA_Unet().to(DEVICE)
     loss_fn = combined_loss
 
     test_loader = get_test_dataloader(
@@ -67,8 +64,9 @@ def main():
         PIN_MEMORY,
     )
 
-    if LOAD_MODEL:
-        load_checkpoint(torch.load(SAVE_PATH+"model.pth"), model)
+    if LOAD_MODEL_TEST:
+        load_checkpoint(torch.load(SAVE_PATH+"model.pth", map_location=DEVICE), model)
+        print(f"Loaded Model Successfully")
     
     dict2={}
     scaler = torch.cuda.amp.GradScaler()
@@ -81,8 +79,8 @@ def main():
     DC_score = pd.DataFrame(dict_2)
     VOE_score = pd.DataFrame(dict_4)
   
-    DC_score.to_csv(X+"DC.csv")
-    VOE_score.to_csv(X+"VOE.csv")
+    DC_score.to_csv(SAVE_PATH+"DC.csv")
+    VOE_score.to_csv(SAVE_PATH+"VOE.csv")
     print("Images saved", flush=True)
     end = time.time()
     print(f"Total time: {end-start} seconds" )
