@@ -33,4 +33,4 @@ For Testing, run
 Citation:
  If you find this repo useful for your research, please consider citing our paper:
 
-    Daydar, Akshay, et al. "Segmentation of tibiofemoral joint tissues from knee MRI using MtRA-Unet and incorporating shape information: Data from the Osteoarthritis Initiative." arXiv preprint arXiv:2401.12932 (2024).
+    A. Daydar, A. Pramanick, A. Sur and S. Kanagaraj, "Diffusion Based Shape-Aware Learning with Multi-Scale Context for Segmentation of Tibiofemoral Knee Joint Tissues: an End-to-End Approach," 2025 IEEE International Conference on Image Processing (ICIP), Anchorage, AK, USA, 2025, pp. 1834-1839, doi: 10.1109/ICIP55913.2025.11084369.
